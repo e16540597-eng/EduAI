@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>EduAI</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #10131b;
+      color: white;
+      height: 100dvh;
+      display: flex;
+      flex-direction: column;
+    }
+    header {
+      padding: 18px;
+      background: #191e2a;
+      border-bottom: 1px solid #303747;
+      font-size: 22px;
+      font-weight: bold;
+    }
+    header span { color: #65a5ff; }
+    #messages {
+      flex: 1;
+      overflow-y: auto;
+      padding: 18px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .message {
+      max-width: 88%;
+      padding: 13px 16px;
+      border-radius: 16px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+    }
+    .bot {
+      background: #222a39;
+      align-self: flex-start;
+    }
+    .user {
+      background: #2868bd;
+      align-self: flex-end;
+    }
+    footer {
+      display: flex;
+      gap: 9px;
+      padding: 13px;
+      background: #191e2a;
+    }
+    input {
+      flex: 1;
+      min-width: 0;
+      border: 1px solid #3b465a;
+      background: #252d3c;
+      color: white;
+      border-radius: 12px;
+      padding: 14px;
+      font-size: 16px;
+      outline: none;
+    }
+    button {
+      border: 0;
+      border-radius: 12px;
+      background: #4285ed;
+      color: white;
+      padding: 0 18px;
+      font-size: 16px;
+      font-weight: bold;
+    }
+    button:disabled { opacity: .5; }
+  </style>
+</head>
+<body>
+  <header>✦ <span>EduAI</span></header>
+  <main id="messages">
+    <div class="message bot">
+      Привет! Я EduAI 👋
+      Пока я готовлюсь к запуску.
+      Скоро здесь можно будет задавать вопросы на любые темы!
+    </div>
+  </main>
+  <footer>
+    <input id="question" placeholder="Напиши сообщение..." />
+    <button id="send">➤</button>
+  </footer>
+  <script>
+    const input = document.getElementById("question");
+    const messages = document.getElementById("messages");
+    const send = document.getElementById("send");
+
+    function addMessage(text, type) {
+      const div = document.createElement("div");
+      div.className = "message " + type;
+      div.textContent = text;
+      messages.appendChild(div);
+      messages.scrollTop = messages.scrollHeight;
+    }
+
+    send.addEventListener("click", () => {
+      const text = input.value.trim();
+      if (!text) return;
+      addMessage(text, "user");
+      input.value = "";
+      addMessage("Подключение настоящего ИИ ещё не настроено. Скоро вернёмся с ответами!", "bot");
+    });
+
+    input.addEventListener("keydown", event => {
+      if (event.key === "Enter") send.click();
+    });
+  </script>
+</body>
+  </html>
